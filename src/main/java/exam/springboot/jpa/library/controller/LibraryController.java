@@ -19,6 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class LibraryController {
     @Autowired
     private LibraryServiceImpl libsrv;
+    @GetMapping("/")
+    public String mainList(){
+        return "list";
+    }
 
     @GetMapping("/page")
     public ModelAndView list(@RequestParam Integer cpg){

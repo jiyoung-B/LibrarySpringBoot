@@ -20,8 +20,17 @@ public class LibraryController {
     @Autowired
     private LibraryServiceImpl libsrv;
     @GetMapping("/")
-    public String mainList(){
-        return "list";
+    public ModelAndView mainList(Integer cpg){
+        ModelAndView mv = new ModelAndView();
+
+        mv.setViewName("list");
+        if (cpg == null || cpg == 0) cpg = 1;
+        mv.addObject("lib", libsrv.readLibrary(cpg));
+        mv.addObject("cpg", cpg);
+        mv.addObject("stpg", ((cpg - 1) / 10) * 10 + 1); // startPage = ((cpg - 1) / 10) * 10 + 1);
+        mv.addObject("cntpg", libsrv.countLibrary()); // startPage = ((cpg - 1) / 10) * 10 + 1);
+
+        return mv;
     }
 
     @GetMapping("/page")

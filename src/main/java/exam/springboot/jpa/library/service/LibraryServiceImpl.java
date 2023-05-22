@@ -12,14 +12,9 @@ import java.util.List;
 
 @Service("libsrv")
 public class LibraryServiceImpl implements LibraryService{
-
-    private LibraryDAO libdao;
-    private static final Logger logger = LogManager.getLogger(LibraryServiceImpl.class);
-
     @Autowired
-    public LibraryServiceImpl(LibraryDAO libdao) {
-        this.libdao = libdao;
-    }
+    private LibraryDAO libdao;
+
 
     @Override
     public boolean newLibrary(Library lib) {

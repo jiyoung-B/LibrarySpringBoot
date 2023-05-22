@@ -44,9 +44,10 @@ public class LibraryDAOImpl implements LibraryDAO{
     @Override
     public int countLibrary() {
         // select ceil(count(bno)/25) from board
-        int allcnt = libraryRepository.countLibraryBy();
+        /*int allcnt = libraryRepository.countLibraryBy();
+        return (int)Math.ceil(allcnt/25);*/
 
-        return (int)Math.ceil(allcnt/25+1);
+        return libraryRepository.countLibraryBy();
     }
 
     @Override

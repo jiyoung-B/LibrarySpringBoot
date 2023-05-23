@@ -10,6 +10,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 public interface LibraryRepository extends PagingAndSortingRepository<Library, Long> {
 
     Page findAll(Pageable pageable);
-    @Query("select ceil(count(lbno)/25) from Library ")
-    int countLibraryBy();
+   /* @Query("select ceil(count(lbno)/25) from Library ")
+    int countLibraryBy();*/
 }

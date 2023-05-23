@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service("libsrv")
 public class LibraryServiceImpl implements LibraryService{
@@ -23,16 +24,23 @@ public class LibraryServiceImpl implements LibraryService{
         return result;
     }
 
-    @Override
+   /* @Override
     public List<Library> readLibrary(int cpage) {
+
+        return libdao.selectLibrary(cpage - 1);
+    }*/
+
+    @Override
+    public Map<String, Object> readLibrary(int cpage) {
 
         return libdao.selectLibrary(cpage - 1);
     }
 
-    @Override
+
+    /*@Override
     public int countLibrary() {
         return libdao.countLibrary();
-    }
+    }*/
 
     @Override
     public List<Library> readLibrary(Pageable pageable) {

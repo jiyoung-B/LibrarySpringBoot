@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Map;
+
 @Controller
 public class LibraryController {
     @Autowired
@@ -23,13 +25,16 @@ public class LibraryController {
     public ModelAndView mainList(Integer cpg){
         ModelAndView mv = new ModelAndView();
 
-        mv.setViewName("list");
         if (cpg == null || cpg == 0) cpg = 1;
-        mv.addObject("lib", libsrv.readLibrary(cpg));
-        mv.addObject("cpg", cpg);
-        mv.addObject("stpg", ((cpg - 1) / 10) * 10 + 1); // startPage = ((cpg - 1) / 10) * 10 + 1);
-        mv.addObject("cntpg", libsrv.countLibrary()); // startPage = ((cpg - 1) / 10) * 10 + 1);
 
+        Map<String, Object> libs = libsrv.readLibrary(cpg);
+
+        mv.addObject("lib", libs.get("lib"));
+        mv.addObject("cpg", cpg);
+        mv.addObject("stpg", libs.get("cntpg")); // startPage = ((cpg - 1) / 10) * 10 + 1);
+        mv.addObject("cntpg", ((cpg - 1) / 10) * 10 + 1); // startPage = ((cpg - 1) / 10) * 10 + 1);
+
+        mv.setViewName("list");
         return mv;
     }
 
@@ -43,7 +48,7 @@ public class LibraryController {
         mv.addObject("lib", libsrv.readLibrary(cpg));
         mv.addObject("cpg", cpg);
         mv.addObject("stpg", ((cpg - 1) / 10) * 10 + 1); // startPage = ((cpg - 1) / 10) * 10 + 1);
-        mv.addObject("cntpg", libsrv.countLibrary()); // startPage = ((cpg - 1) / 10) * 10 + 1);
+       /* mv.addObject("cntpg", libsrv.countLibrary()); // startPage = ((cpg - 1) / 10) * 10 + 1);*/
         //mv.setViewName("board/list");
 
         return mv;

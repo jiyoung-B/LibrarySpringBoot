@@ -15,7 +15,10 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @Repository("libdao")
 public class LibraryDAOImpl implements LibraryDAO{
@@ -35,20 +38,38 @@ public class LibraryDAOImpl implements LibraryDAO{
     }
 
     @Override
+    public Map<String, Object> selectLibrary(int cpage) {
+        Pageable paging =
+                PageRequest.of(cpage, 25, Sort.Direction.DESC, "lbno");
+
+        List<Library> lblist = libraryRepository.findAll(paging).getContent();
+        int cntpg = libraryRepository.findAll(paging).getTotalPages();
+
+        Map<String, Object> libs = new HashMap<>();
+        libs.put("lib", lblist);
+        libs.put("cntpg", cntpg);
+
+        return libs;
+    }
+
+    /*@Override
     public List<Library> selectLibrary(int cpage) {
         Pageable paging =
                 PageRequest.of(cpage, 25, Sort.Direction.DESC, "lbno");
-        return libraryRepository.findAll(paging).getContent();
-    }
 
-    @Override
+        List<Library> lblist = libraryRepository.findAll(paging).getContent();
+        int cntpg = libraryRepository.findAll(paging).getContent();
+        return ;
+    }*/
+
+    /*@Override
     public int countLibrary() {
         // select ceil(count(bno)/25) from board
-        /*int allcnt = libraryRepository.countLibraryBy();
-        return (int)Math.ceil(allcnt/25);*/
+        *//*int allcnt = libraryRepository.countLibraryBy();
+        return (int)Math.ceil(allcnt/25);*//*
 
         return libraryRepository.countLibraryBy();
-    }
+    }*/
 
     @Override
     public Library selectOneLibrary(int lbno) {

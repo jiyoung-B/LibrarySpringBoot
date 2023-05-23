@@ -14,6 +14,13 @@
     <!--<div id="main" th:with="pglink = ${'/page?cpg='}">-->
     <div id="main" th:with="pglink = ${'/?cpg='}">
 
+        <th:block th:if="${cpg > cntpg}">
+            <script th:inline="javascript">
+                location.href="/?cpg=" + [[${cntpg}]];
+            </script>
+
+        </th:block>
+
 
 
     <h1>도서관 리스트 25건</h1>
